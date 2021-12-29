@@ -19,7 +19,7 @@ choix_menu = st.sidebar.radio('', options=parties_menu)
 
 if choix_menu==parties_menu[0]:
     st.title(parties_menu[0])
-    st.info("Test de texte")
+    st.info("Le graphique suivant permet de comparer, année après année, l'amplitude de puissance moyenne produite quotidiennement par filière de production.")
 
 
     choix_annee = ["2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"]
