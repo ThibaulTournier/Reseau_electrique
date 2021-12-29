@@ -29,6 +29,7 @@ if choix_menu==parties_menu[0]:
     ax1 = fig1.add_subplot(111)
     ax1.boxplot(df.loc[str(annee),'Fioul (MW)' : 'Bioénergies (MW)'].resample("D").mean(), showfliers=False)
     ax1.set_xticklabels(['Fioul','Charbon','Gaz','Nucléaire','Eolien','Solaire','Hydraulique','Pompage','Bioénergies'])
+    ax1.set_ylim(0, 61000)
     ax1.set_ylabel("Production (MW)")
     ax1.set_title("Moyennes quotidiennes de puissance de production de l'année " + str(annee) )
     st.pyplot(fig1);
