@@ -33,7 +33,7 @@ if choix_menu==parties_menu[0]:
     ax1.set_ylim(0, 61000)
     ax1.set_ylabel("Production (MW)")
     ax1.set_title("Moyennes quotidiennes de puissance de production de l'année " + str(annee) )
-    st.pyplot(fig1);
+    st.pyplot(fig1)
 
     
 elif choix_menu==parties_menu[1]:
@@ -41,7 +41,8 @@ elif choix_menu==parties_menu[1]:
     st.info("Le graphique suivant permet de visuliser la saisonnalité de chacune des filière de production et de la consommation.")
     
     
-    choix_filiere = ['Consommation','Nucléaire','Eolien','Solaire','Hydraulique','Bioénergies','Fioul','Charbon','Gaz']
+    choix_filiere = ['Consommation (MW)', 'Nucléaire (MW)', 'Eolien (MW)', 'Solaire (MW)', 'Hydraulique (MW)','Fioul (MW)', \
+                     'Charbon (MW)', 'Gaz (MW)','Bioénergies (MW)']
     filiere = st.selectbox("Choisissez une filière :", options = choix_filiere)   
     
     fig2 = plt.figure(figsize=[15,8])
@@ -50,8 +51,9 @@ elif choix_menu==parties_menu[1]:
     
     l=list()
     for i in df.resample("M").mean().index.month.unique():
-        l.append(df.resample("M").mean()[df.resample("M").mean().index.month == i][filiere])
+        l.append(df.resample("M").mean()[df.resample("M").mean().index.month == i][str(filiere)])
     ax2.boxplot(l, showfliers=False)
     plt.sca(ax2)
     plt.xticks([1,2,3,4,5,6,7,8,9,10,11,12], ['J', 'F', 'M', 'A','M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'])
-    ax2.set_ylabel("Puissance (MW)");
+    ax2.set_ylabel("Puissance (MW)")
+    st.pyplot(fig2)
