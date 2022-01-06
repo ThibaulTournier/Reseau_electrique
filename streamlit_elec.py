@@ -82,7 +82,14 @@ elif choix_menu==parties_menu[2]:
     for i in range(len(options)) :
       liste_graphes.append(options[i])
       
-    st.write('You selected:', liste_graphes)
+    fig3 = plt.figure(figsize=(15,10))
+    ax3 = fig3.add_subplot(111)
+
+    ax3.plot(df.loc[start : end,liste_graphes].resample(pas).mean(), label = liste_graphes)
+    ax3.legend()
+    ax3.set_xlabel("Temps")
+    ax3.set_ylabel("Puissance (MW)")
+    ax3.set_title("Consommation et productions lissées par jour (2019)")
       
 
 
