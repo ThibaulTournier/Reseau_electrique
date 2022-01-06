@@ -59,36 +59,3 @@ elif choix_menu==parties_menu[1]:
     ax2.set_ylabel("Puissance (MW)")
     st.pyplot(fig2)
 
-elif choix_menu==parties_menu[2]:
-    st.title(parties_menu[2])
-    st.info("Le graphique suivant permet de visuliser l'évolution de la consommation et des productions au cours du temps'.")
-    
-    dico = {"3 heures" : "H", "1 jour" : "D", "1 semaine" : "W", "1 mois" : "M"}
-    pas = st.selectbox("Choisissez un pas :", options = ['3 heures', '1 jour', '1 semaine', '1 mois']) 
-    
-    start = st.date_input("Date de début",
-     datetime.date(2012, 1, 1))
-    
-    end = st.date_input("Date de fin",
-     datetime.date(2021, 7, 31))
-    
-    liste_prod = ['Consommation (MW)', 'Gaz (MW)', 'Nucléaire (MW)','Eolien (MW)', 'Solaire (MW)', 'Hydraulique (MW)']
-    
-    options = st.multiselect(
-     'What are your favorite colors',
-     liste_prod)
-    
-    liste_graphes =[]
-    for i in range(len(options)) :
-      liste_graphes.append(options[i])
-      
-
-    fig3 = plt.figure(figsize=(15,10))
-    ax3 = fig3.add_subplot(111)
-
-    ax3.plot(df.loc[start : end,options].resample(dico[pas]).mean(), label = options)
-    ax3.legend()
-    ax3.set_xlabel("Temps")
-    ax3.set_ylabel("Puissance (MW)")
-    ax3.set_title("Consommation et productions lissées par jour (2019)")
-    st.pyplot(fig3)
