@@ -66,12 +66,20 @@ elif choix_menu==parties_menu[2]:
     choix_pas = ['H','D', 'W', 'M']
     pas = st.selectbox("Choisissez un pas :", options = choix_pas) 
     
+    start = st.date_input(
+     "Date de début",
+     datetime.date(2015, 7, 6))
+    
+    end = st.date_input(
+     "Date de fin",
+     datetime.date(2019, 7, 6))
+    
     fig3 = plt.figure(figsize=(15,10))
     ax3 = fig3.add_subplot(111)
     
     liste_graphes = ['Consommation (MW)', 'Gaz (MW)', 'Nucléaire (MW)','Eolien (MW)', 'Solaire (MW)', 'Hydraulique (MW)']
     
-    ax3.plot(df.loc["2019",liste_graphes].resample(pas).mean(), label = liste_graphes)
+    ax3.plot(df.loc[start : end,liste_graphes].resample(pas).mean(), label = liste_graphes)
     ax3.legend()
     ax3.set_xlabel("Temps")
     ax3.set_ylabel("Puissance (MW)")
