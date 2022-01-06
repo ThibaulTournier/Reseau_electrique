@@ -49,11 +49,11 @@ elif choix_menu==parties_menu[1]:
     fig2 = plt.figure(figsize=[15,8])
     ax2 = fig2.add_subplot(111)
 
-    df = df.loc["2012":"2020",:]
+    df1 = df.resample("M").mean()
 
     l=list()
-    for i in df.resample("M").mean().index.month.unique():
-      st.write(df.resample("M").mean()[df.resample("M").mean().index.month == i]['Solaire (MW)'])
+    #for i in df.resample("M").mean().index.month.unique():
+    #  st.write(df.resample("M").mean()[df.resample("M").mean().index.month == i]['Solaire (MW)'])
     ax2.plot(df['Solaire (MW)'])
     #plt.sca(ax2)
     #plt.xticks([1,2,3,4,5,6,7,8,9,10,11,12], ['J', 'F', 'M', 'A','M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'])
