@@ -83,6 +83,7 @@ elif choix_menu==parties_menu[2]:
     ax3.set_xlabel("Temps")
     ax3.set_ylabel("Puissance (MW)")
     ax3.set_title("Consommation et productions lissées par jour (2019)")
+    st.pyplot(fig3)
     
     options = st.multiselect(
      'What are your favorite colors',
