@@ -19,9 +19,10 @@ parties_menu = ["Boites à moustache des filières de production",
 
 choix_menu = st.sidebar.radio('', options=parties_menu)
 
-df2 = df.resample("M").mean().index.month#[df.resample("M").mean().index.month == 3]['Hydraulique (MW)'][3]
+#[df.resample("M").mean().index.month == 3]['Hydraulique (MW)'][3]
 
 if choix_menu==parties_menu[0]:
+    st.dataframe(df.resample("M").mean().index.month)
     st.title(parties_menu[0])
     st.info("Le graphique suivant permet de comparer, année après année, l'amplitude de puissance moyenne produite quotidiennement par filière de production.")
 
