@@ -73,10 +73,17 @@ elif choix_menu==parties_menu[2]:
     end = st.date_input("Date de fin",
      datetime.date(2021, 7, 31))
     
-    fig3 = plt.figure(figsize=(15,10))
-    ax3 = fig3.add_subplot(111)
     
     liste_graphes = ['Consommation (MW)', 'Gaz (MW)', 'Nucléaire (MW)','Eolien (MW)', 'Solaire (MW)', 'Hydraulique (MW)']
+    options = st.multiselect(
+     'What are your favorite colors',
+     liste_graphes)
+
+    st.write('You selected:', options)
+    
+    fig3 = plt.figure(figsize=(15,10))
+    ax3 = fig3.add_subplot(111)
+
     
     ax3.plot(df.loc[start : end,liste_graphes].resample(pas).mean(), label = liste_graphes)
     ax3.legend()
