@@ -73,7 +73,7 @@ elif choix_menu==parties_menu[2]:
     end = st.date_input("Date de fin",
      datetime.date(2021, 7, 31))
     
-        fig3 = plt.figure(figsize=(15,10))
+    fig3 = plt.figure(figsize=(15,10))
     ax3 = fig3.add_subplot(111)
     
     liste_graphes = ['Consommation (MW)', 'Gaz (MW)', 'Nucléaire (MW)','Eolien (MW)', 'Solaire (MW)', 'Hydraulique (MW)']
