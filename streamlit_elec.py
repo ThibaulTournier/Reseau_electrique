@@ -50,6 +50,7 @@ elif choix_menu==parties_menu[1]:
     ax2 = fig2.add_subplot(111)
     
     df1 = df.resample("M").mean()
+    df2 = df1[df1.index.month == 1]['Solaire (MW)']
     l=list()
     #for i in df.resample("M").mean().index.month.unique():
     #    l.append(df.resample("M").mean()[df.resample("M").mean().index.month == i][str(filiere)])
