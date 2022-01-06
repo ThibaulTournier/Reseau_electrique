@@ -19,7 +19,7 @@ parties_menu = ["Boites à moustache des filières de production",
 
 choix_menu = st.sidebar.radio('', options=parties_menu)
 
-df2 = df.resample("M").mean()#[df.resample("M").mean().index.month == 3]['Hydraulique (MW)'][3]
+df2 = df.resample("M").mean()['Hydraulique (MW)'][3]#[df.resample("M").mean().index.month == 3]['Hydraulique (MW)'][3]
 
 if choix_menu==parties_menu[0]:
     st.title(parties_menu[0])
