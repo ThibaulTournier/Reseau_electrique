@@ -68,9 +68,7 @@ elif choix_menu==parties_menu[2]:
     
     start = st.date_input("Date de début")
     
-    end = st.date_input(
-     "Date de fin",
-     datetime.date(2021, 7, 6))
+    end = st.date_input("Date de fin")
     
 
     
