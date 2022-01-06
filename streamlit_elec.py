@@ -7,7 +7,7 @@ df = pd.read_csv("eco2mix-national-cons-def_court.csv")
 df['Date et Heure'] = pd.to_datetime(df['Date et Heure'], format = "%Y-%m-%dT%H:%M:%S")
 df = df.sort_values(by = ["Date et Heure"])
 df = df.set_index('Date et Heure')
-#df["Mois"] = df.index.month
+df["Mois"] = df.index.month
 
 st.sidebar.title("Panorama du réseau électrique français")
 st.sidebar.subheader("Menu")
@@ -24,7 +24,7 @@ choix_menu = st.sidebar.radio('', options=parties_menu)
 df2 = df.resample("M").mean()
 
 if choix_menu==parties_menu[0]:
-    st.dataframe(df[df.index.month == 3])
+    st.dataframe(df[df["Mois"] == 3])
     st.title(parties_menu[0])
     st.info("Le graphique suivant permet de comparer, année après année, l'amplitude de puissance moyenne produite quotidiennement par filière de production.")
 
