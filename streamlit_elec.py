@@ -50,13 +50,8 @@ elif choix_menu==parties_menu[1]:
     ax2 = fig2.add_subplot(111)
 
     df1 = df.resample("M").mean()
+    df2 = df1[df1.index.month == 1]['Solaire (MW)']
 
-    l=list()
-    for i in df1.index.month.unique():
-      st.write(df1[df1.index.month == i]['Solaire (MW)'])
-    ax2.plot(df['Solaire (MW)'])
-    #plt.sca(ax2)
-    #plt.xticks([1,2,3,4,5,6,7,8,9,10,11,12], ['J', 'F', 'M', 'A','M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'])
-    ax2.set_ylabel("Consommation (MW)")
+    ax2.boxplot(df2)
     st.pyplot(fig2)
 
