@@ -87,7 +87,7 @@ elif choix_menu==parties_menu[2]:
     fig3 = plt.figure(figsize=(15,10))
     ax3 = fig3.add_subplot(111)
 
-    ax3.plot(df.loc[start : end,liste_graphes].resample(pas).mean(), label = liste_graphes)
+    ax3.plot(df.loc[start : end,options].resample(pas).mean(), label = options)
     ax3.legend()
     ax3.set_xlabel("Temps")
     ax3.set_ylabel("Puissance (MW)")
