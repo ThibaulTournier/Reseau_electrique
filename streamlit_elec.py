@@ -63,9 +63,8 @@ elif choix_menu==parties_menu[2]:
     st.title(parties_menu[2])
     st.info("Le graphique suivant permet de visuliser l'évolution de la consommation et des productions au cours du temps'.")
     
-    
-    choix_pas = ['H','D', 'W', 'M']
-    pas = st.selectbox("Choisissez un pas :", options = choix_pas) 
+    dico = {"3 heures" : "H", "1 jour" : "D", "1 semaine" : "W", "1 mois" : "M"}
+    pas = st.selectbox("Choisissez un pas :", options = dico.keys()) 
     
     start = st.date_input("Date de début",
      datetime.date(2012, 1, 1))
@@ -87,14 +86,9 @@ elif choix_menu==parties_menu[2]:
     fig3 = plt.figure(figsize=(15,10))
     ax3 = fig3.add_subplot(111)
 
-    ax3.plot(df.loc[start : end,options].resample(pas).mean(), label = options)
+    ax3.plot(df.loc[start : end,options].resample(dico[pas]).mean(), label = options)
     ax3.legend()
     ax3.set_xlabel("Temps")
     ax3.set_ylabel("Puissance (MW)")
     ax3.set_title("Consommation et productions lissées par jour (2019)")
     st.pyplot(fig3)
-
-
-
-    
-
