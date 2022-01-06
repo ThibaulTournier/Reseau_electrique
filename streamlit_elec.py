@@ -57,3 +57,23 @@ elif choix_menu==parties_menu[1]:
     plt.xticks([1,2,3,4,5,6,7,8,9,10,11,12], ['J', 'F', 'M', 'A','M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'])
     ax2.set_ylabel("Puissance (MW)")
     st.pyplot(fig2)
+
+elif choix_menu==parties_menu[2]:
+    st.title(parties_menu[2])
+    st.info("Le graphique suivant permet de visuliser l'évolution de la consommation et des productions au cours du temps'.")
+    
+    
+    choix_pas = ['H','D', 'W', 'M']
+    pas = st.selectbox("Choisissez un pas :", options = choix_pas) 
+    
+    fig3 = plt.figure(figsize=(15,10))
+    ax3 = fig3.add_subplot(111)
+    
+    liste_graphes = ['Consommation (MW)', 'Gaz (MW)', 'Nucléaire (MW)','Eolien (MW)', 'Solaire (MW)', 'Hydraulique (MW)']
+    
+    ax3.plot(df.loc["2019",liste_graphes].resample(pas).mean(), label = liste_graphes)
+    ax3.legend()
+    ax3.set_xlabel("Temps")
+    ax3.set_ylabel("Puissance (MW)")
+    ax3.set_title("Consommation et productions lissées par jour (2019)")
+    st.pyplot(fig3)
