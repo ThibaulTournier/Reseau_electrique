@@ -64,7 +64,7 @@ elif choix_menu==parties_menu[2]:
     st.info("Le graphique suivant permet de visuliser l'évolution de la consommation et des productions au cours du temps'.")
     
     dico = {"3 heures" : "H", "1 jour" : "D", "1 semaine" : "W", "1 mois" : "M"}
-    pas = st.selectbox("Choisissez un pas :", options = dico.keys()) 
+    pas = st.selectbox("Choisissez un pas :", options = ['3 heures', '1 jour', '1 semaine', '1 mois']) 
     
     start = st.date_input("Date de début",
      datetime.date(2012, 1, 1))
