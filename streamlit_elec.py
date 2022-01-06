@@ -24,7 +24,7 @@ choix_menu = st.sidebar.radio('', options=parties_menu)
 df2 = df.resample("M").mean()
 
 if choix_menu==parties_menu[0]:
-    st.dataframe(df[df["Fioul (MW)"] > 5500])
+    st.dataframe(df[(df["Fioul (MW)"] > 5500)])
     st.title(parties_menu[0])
     st.info("Le graphique suivant permet de comparer, année après année, l'amplitude de puissance moyenne produite quotidiennement par filière de production.")
 
