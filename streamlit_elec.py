@@ -53,7 +53,6 @@ elif choix_menu==parties_menu[1]:
 
     l=list()
     for i in df.resample("M").mean().index.month.unique():
-      #st.write(i)
       l.append(df.resample("M").mean()[df.resample("M").mean().index.month == i]['Solaire (MW)'])
     ax2.plot(df['Solaire (MW)'])
     #plt.sca(ax2)
