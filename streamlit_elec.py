@@ -79,7 +79,8 @@ elif choix_menu==parties_menu[2]:
      'What are your favorite colors',
      liste_graphes)
     
-    st.write(type(options))
+    for i range(len(options)) :
+      st.write(options[i])
     
 
     
