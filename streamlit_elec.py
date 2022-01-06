@@ -74,14 +74,7 @@ elif choix_menu==parties_menu[2]:
      datetime.date(2021, 7, 31))
     
     liste_prod = ['Consommation (MW)', 'Gaz (MW)', 'Nucléaire (MW)','Eolien (MW)', 'Solaire (MW)', 'Hydraulique (MW)']
-    options = st.multiselect(
-     'What are your favorite colors',
-     liste_prod)
     
-    liste_graphes =[]
-    for i in range(len(options)) :
-      liste_graphes.append(options[i])
-      
     fig3 = plt.figure(figsize=(15,10))
     ax3 = fig3.add_subplot(111)
 
@@ -90,6 +83,16 @@ elif choix_menu==parties_menu[2]:
     ax3.set_xlabel("Temps")
     ax3.set_ylabel("Puissance (MW)")
     ax3.set_title("Consommation et productions lissées par jour (2019)")
+    
+    options = st.multiselect(
+     'What are your favorite colors',
+     liste_prod)
+    
+    liste_graphes =[]
+    for i in range(len(options)) :
+      liste_graphes.append(options[i])
+      
+
       
 
 
