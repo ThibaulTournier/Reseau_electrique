@@ -66,9 +66,7 @@ elif choix_menu==parties_menu[2]:
     choix_pas = ['H','D', 'W', 'M']
     pas = st.selectbox("Choisissez un pas :", options = choix_pas) 
     
-    start = st.date_input(
-     "Date de début",
-     datetime.date(2015, 7, 6))
+    start = st.date_input("Date de début")
     
     st.write('Your birthday is:', start)
     
