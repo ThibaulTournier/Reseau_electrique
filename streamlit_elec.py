@@ -79,7 +79,7 @@ elif choix_menu==parties_menu[2]:
      'What are your favorite colors',
      liste_graphes)
     
-    st.write(options)
+    st.write(options[1])
 
     
 
