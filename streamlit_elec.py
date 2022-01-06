@@ -52,8 +52,8 @@ elif choix_menu==parties_menu[1]:
     df = df.loc["2012":"2020",:]
 
     l=list()
-    for i in df.resample("M").mean().index.month.unique():
-        l.append(df.resample("M").mean()[df.resample("M").mean().index.month == i]['Solaire (MW)'])
+    #for i in df.resample("M").mean().index.month.unique():
+    #    l.append(df.resample("M").mean()[df.resample("M").mean().index.month == i]['Solaire (MW)'])
     ax2.plot(df['Solaire (MW)'])
     #plt.sca(ax2)
     #plt.xticks([1,2,3,4,5,6,7,8,9,10,11,12], ['J', 'F', 'M', 'A','M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'])
