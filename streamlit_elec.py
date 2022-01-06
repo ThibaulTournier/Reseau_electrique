@@ -70,6 +70,8 @@ elif choix_menu==parties_menu[2]:
      "Date de début",
      datetime.date(2015, 7, 6))
     
+    st.write('Your birthday is:', start)
+    
     end = st.date_input(
      "Date de fin",
      datetime.date(2019, 7, 6))
