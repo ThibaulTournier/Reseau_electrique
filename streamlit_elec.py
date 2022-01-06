@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import streamlit as st
+import datetime
 
 df = pd.read_csv("eco2mix-national-cons-def_court.csv")
 df['Date et Heure'] = pd.to_datetime(df['Date et Heure'], format = "%Y-%m-%dT%H:%M:%S")
@@ -66,7 +67,8 @@ elif choix_menu==parties_menu[2]:
     choix_pas = ['H','D', 'W', 'M']
     pas = st.selectbox("Choisissez un pas :", options = choix_pas) 
     
-    start = st.date_input("Date de début")
+    start = st.date_input("Date de début",
+     datetime.date(2019, 7, 6))
     
     end = st.date_input("Date de fin")
     
