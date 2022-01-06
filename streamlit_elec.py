@@ -79,9 +79,18 @@ elif choix_menu==parties_menu[2]:
      'What are your favorite colors',
      liste_graphes)
     
-    st.write(options[1])
+    st.write('You selected:', options)
+    
+    fig3 = plt.figure(figsize=(15,10))
+    ax3 = fig3.add_subplot(111)
 
     
+    ax3.plot(df.loc[start : end,[options]].resample(pas).mean(), label = liste_graphes)
+    ax3.legend()
+    ax3.set_xlabel("Temps")
+    ax3.set_ylabel("Puissance (MW)")
+    ax3.set_title("Consommation et productions lissées par jour (2019)")
+    st.pyplot(fig3)
 
     
 
