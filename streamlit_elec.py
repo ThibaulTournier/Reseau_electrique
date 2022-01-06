@@ -72,18 +72,4 @@ elif choix_menu==parties_menu[2]:
     
     st.write('Your birthday is:', start)
     
-    end = st.date_input(
-     "Date de fin",
-     datetime.date(2019, 7, 6))
-    
-    fig3 = plt.figure(figsize=(15,10))
-    ax3 = fig3.add_subplot(111)
-    
-    liste_graphes = ['Consommation (MW)', 'Gaz (MW)', 'Nucléaire (MW)','Eolien (MW)', 'Solaire (MW)', 'Hydraulique (MW)']
-    
-    ax3.plot(df.loc[start : end,liste_graphes].resample(pas).mean(), label = liste_graphes)
-    ax3.legend()
-    ax3.set_xlabel("Temps")
-    ax3.set_ylabel("Puissance (MW)")
-    ax3.set_title("Consommation et productions lissées par jour (2019)")
-    st.pyplot(fig3)
+
