@@ -52,7 +52,7 @@ elif choix_menu==parties_menu[1]:
     
     l=list()
     for i in df.resample("M").mean().index.month.unique():
-        l.append(df.resample("M").mean()[str(df.resample("M").mean().index.month) == "5"][str(filiere)])
+        l.append(df.resample("M").mean()[df.resample("M").mean().index.month == "5"][str(filiere)])
     ax2.boxplot(l, showfliers=False)
     plt.sca(ax2)
     plt.xticks([1,2,3,4,5,6,7,8,9,10,11,12], ['J', 'F', 'M', 'A','M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'])
