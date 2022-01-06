@@ -53,7 +53,7 @@ elif choix_menu==parties_menu[1]:
     l=list()
     for i in df.resample("M").mean().index.month.unique():
       st.write(i)
-      #st.write(df.resample("M").mean()[df.resample("M").mean().index.month == i]['Hydraulique (MW)'])
+      st.write(df.resample("M").mean()[df.resample("M").mean().index.month == i]['Hydraulique (MW)'][3])
         #l.append(df.resample("M").mean()[df.resample("M").mean().index.month == 5][filiere])
     ax2.boxplot(l, showfliers=False)
     plt.sca(ax2)
