@@ -20,14 +20,10 @@ parties_menu = ["Boites à moustache des filières de production",
 
 choix_menu = st.sidebar.radio('', options=parties_menu)
 
-#[df.resample("M").mean().index.month == 3]['Hydraulique (MW)'][3]
-df2 = df.resample("M").mean()
 
 if choix_menu==parties_menu[0]:
-    st.dataframe(df[(df["Fioul (MW)"] > 5500)]) #INDEXING VIA UNE EXPRESSION BOOLEENNE NE FONCTIONNE PLUS !!!!
     st.title(parties_menu[0])
     st.info("Le graphique suivant permet de comparer, année après année, l'amplitude de puissance moyenne produite quotidiennement par filière de production.")
-
 
     choix_annee = ["2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"]
     annee = st.selectbox("Choisissez une année :", options = choix_annee)
@@ -46,15 +42,13 @@ elif choix_menu==parties_menu[1]:
     st.title(parties_menu[1])
     st.info("Le graphique suivant permet de visuliser la saisonnalité de chacune des filière de production et de la consommation.")
     
-    
     choix_filiere = ['Consommation (MW)', 'Nucléaire (MW)', 'Eolien (MW)', 'Solaire (MW)', 'Hydraulique (MW)','Fioul (MW)', \
                      'Charbon (MW)', 'Gaz (MW)','Bioénergies (MW)']
     filiere = st.selectbox("Choisissez une filière :", options = choix_filiere)   
     
     fig2 = plt.figure(figsize=[15,8])
     ax2 = fig2.add_subplot(111)
-    
-    
+      
     l=list()
     for i in df.resample("M").mean().index.month.unique():
         l.append(df.resample("M").mean()[df.resample("M").mean().index.month == i][filiere])
@@ -67,7 +61,7 @@ elif choix_menu==parties_menu[1]:
     
 elif choix_menu==parties_menu[2]:
     st.title(parties_menu[2])
-    st.info("Le graphique suivant permet de visuliser l'évolution de la consommation et des productions au cours du temps'.")
+    st.info("Le graphique suivant permet de visuliser l'évolution de la consommation et des productions au cours du temps.")
     
     dico = {"3 heures" : "H", "1 jour" : "D", "1 semaine" : "W", "1 mois" : "M"}
     pas = st.selectbox("Choisissez un pas :", options = ['3 heures', '1 jour', '1 semaine', '1 mois']) 
@@ -88,7 +82,6 @@ elif choix_menu==parties_menu[2]:
     for i in range(len(options)) :
       liste_graphes.append(options[i])
       
-
     fig3 = plt.figure(figsize=(15,10))
     ax3 = fig3.add_subplot(111)
 
