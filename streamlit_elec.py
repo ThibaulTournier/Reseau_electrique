@@ -75,7 +75,7 @@ elif choix_menu==parties_menu[2]:
     liste_prod = ['Consommation (MW)', 'Gaz (MW)', 'Nucléaire (MW)','Eolien (MW)', 'Solaire (MW)', 'Hydraulique (MW)']
     
     options = st.multiselect(
-     'What are your favorite colors',
+     'Choix des filières à visualiser :',
      liste_prod)
     
     liste_graphes =[]
