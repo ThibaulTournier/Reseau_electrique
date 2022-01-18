@@ -86,7 +86,7 @@ elif choix_menu==parties_menu[2]:
     end = st.date_input("Date de fin",
      datetime.date(2021, 7, 31))
     
-    liste_prod = ['Consommation (MW)', 'Gaz (MW)', 'Nucléaire (MW)','Eolien (MW)', 'Solaire (MW)', 'Hydraulique (MW)']
+    liste_prod = ['Consommation (MW)', 'Thermique (MW)', 'Nucléaire (MW)','Eolien (MW)', 'Solaire (MW)', 'Hydraulique (MW)', 'Bioénergies (MW)']
     
     options = st.multiselect(
      'Choix des filières à visualiser :',
@@ -110,7 +110,7 @@ elif choix_menu==parties_menu[3]:
     st.title(parties_menu[3])
     st.info("Carte permettant de visualiser la moyenne annuelle de puissance produite par une filière sur une région")
     
-    choix_annee = ["2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"]
+    choix_annee = ["2013","2014","2015","2016","2017","2018","2019","2020","2021"]
     annee = st.selectbox("Choisissez une année :", options = choix_annee)
     
     df_reg = df0.copy()
