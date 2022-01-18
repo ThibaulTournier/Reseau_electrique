@@ -122,7 +122,7 @@ elif choix_menu==parties_menu[3]:
     
     liste_prod = ['Consommation (MW)', 'Gaz (MW)', 'Nucléaire (MW)','Eolien (MW)', 'Solaire (MW)', 'Hydraulique (MW)']
     
-    filiere_region = st.multiselect(
+    filiere_region = st.selectbox(
      'Choix des filières à visualiser :',
      liste_prod)
     
