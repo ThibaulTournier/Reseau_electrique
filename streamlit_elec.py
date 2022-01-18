@@ -128,26 +128,26 @@ elif choix_menu==parties_menu[3]:
     
     for i in range(12) :
         nom_region = regions_geo["features"][i]['properties']["nom"]
-        regions_geo["features"][i]['properties'][filiere_region] = df[df["Nom de la région"]==nom_region].loc[nom_region,filiere_region]
+        regions_geo["features"][i]['properties'][filiere_region] = df_reg[df_reg["Nom de la région"]==nom_region].loc[nom_region,filiere_region]
     
     regions_map = folium.Map(location=[47,1], zoom_start=6, tiles='cartodbpositron')
     
     choropleth = folium.Choropleth(
         geo_data=regions_geo,
-        data=df,
+        data=df_reg,
         columns=['Nom de la région', filiere_region],
         key_on='feature.properties.nom',
         fill_color='OrRd', 
         fill_opacity=1, 
         line_opacity=1,
         legend_name= filiere_region,
-        bins=[int(floor(df[filiere_region].min()/100)*100), 
-            int(round((df[filiere_region].min() + (df[filiere_region].max() - df[filiere_region].min())/6)/10,0)*10),
-            int(round((df[filiere_region].min() + (df[filiere_region].max() - df[filiere_region].min())*2/6)/10,0)*10),
-            int(round((df[filiere_region].min() + (df[filiere_region].max() - df[filiere_region].min())*3/6)/10,0)*10),
-            int(round((df[filiere_region].min() + (df[filiere_region].max() - df[filiere_region].min())*4/6)/10,0)*10),
-            int(round((df[filiere_region].min() + (df[filiere_region].max() - df[filiere_region].min())*5/6)/10,0)*10),
-            int(ceil(df[filiere_region].max()/100)*100)],
+        bins=[int(floor(df_reg[filiere_region].min()/100)*100), 
+            int(round((df_reg[filiere_region].min() + (df_reg[filiere_region].max() - df_reg[filiere_region].min())/6)/10,0)*10),
+            int(round((df_reg[filiere_region].min() + (df_reg[filiere_region].max() - df_reg[filiere_region].min())*2/6)/10,0)*10),
+            int(round((df_reg[filiere_region].min() + (df_reg[filiere_region].max() - df_reg[filiere_region].min())*3/6)/10,0)*10),
+            int(round((df_reg[filiere_region].min() + (df_reg[filiere_region].max() - df_reg[filiere_region].min())*4/6)/10,0)*10),
+            int(round((df_reg[filiere_region].min() + (df_reg[filiere_region].max() - df_reg[filiere_region].min())*5/6)/10,0)*10),
+            int(ceil(df_reg[filiere_region].max()/100)*100)],
         highlight=True,
         smooth_factor=1)
     
