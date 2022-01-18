@@ -2,12 +2,26 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import streamlit as st
 import datetime
+import folium
+import json
+from math import *
+from streamlit_folium import folium_static
 
 df = pd.read_csv("eco2mix-national-cons-def_court.csv")
 df['Date et Heure'] = pd.to_datetime(df['Date et Heure'], format = "%Y-%m-%dT%H:%M:%S")
 df = df.sort_values(by = ["Date et Heure"])
 df = df.set_index('Date et Heure')
 df["Mois"] = df.index.month
+
+
+df0 = pd.read_csv("eco2mix-regional-cons-def_court.csv")
+df0['Date - Heure'] = pd.to_datetime(df0['Date - Heure'])
+df0 = df0.set_index('Date - Heure')
+df0 = df0.fillna(0)
+
+
+regions_geo = json.load(open("regions.geojson"))
+
 
 st.sidebar.title("Panorama du réseau électrique français")
 st.sidebar.subheader("Menu")
@@ -91,3 +105,56 @@ elif choix_menu==parties_menu[2]:
     ax3.set_ylabel("Puissance (MW)")
     ax3.set_title("Consommation et productions lissées par jour (2019)")
     st.pyplot(fig3)
+    
+elif choix_menu==parties_menu[3]:
+    st.title(parties_menu[3])
+    st.info("Carte permettant de visualiser la moyenne annuelle de puissance produite par une filière sur une région")
+    
+    choix_annee = ["2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"]
+    annee = st.selectbox("Choisissez une année :", options = choix_annee)
+    
+    df_reg = df0.copy()
+    df_reg = df_reg.loc[str(annee),:]
+    df_reg = df_reg.groupby("Région").mean()
+    df_reg = round(df_reg,1)
+    df_reg["Nom de la région"] = df_reg.index
+    
+    
+    liste_prod = ['Consommation (MW)', 'Gaz (MW)', 'Nucléaire (MW)','Eolien (MW)', 'Solaire (MW)', 'Hydraulique (MW)']
+    
+    filiere_region = st.multiselect(
+     'Choix des filières à visualiser :',
+     liste_prod)
+    
+    for i in range(12) :
+        nom_region = regions_geo["features"][i]['properties']["nom"]
+        regions_geo["features"][i]['properties'][filiere_region] = df[df["Nom de la région"]==nom_region].loc[nom_region,filiere_region]
+    
+    regions_map = folium.Map(location=[47,1], zoom_start=6, tiles='cartodbpositron')
+    
+    choropleth = folium.Choropleth(
+        geo_data=regions_geo,
+        data=df,
+        columns=['Nom de la région', filiere_region],
+        key_on='feature.properties.nom',
+        fill_color='OrRd', 
+        fill_opacity=1, 
+        line_opacity=1,
+        legend_name= filiere_region,
+        bins=[int(floor(df[filiere_region].min()/100)*100), 
+            int(round((df[filiere_region].min() + (df[filiere_region].max() - df[filiere_region].min())/6)/10,0)*10),
+            int(round((df[filiere_region].min() + (df[filiere_region].max() - df[filiere_region].min())*2/6)/10,0)*10),
+            int(round((df[filiere_region].min() + (df[filiere_region].max() - df[filiere_region].min())*3/6)/10,0)*10),
+            int(round((df[filiere_region].min() + (df[filiere_region].max() - df[filiere_region].min())*4/6)/10,0)*10),
+            int(round((df[filiere_region].min() + (df[filiere_region].max() - df[filiere_region].min())*5/6)/10,0)*10),
+            int(ceil(df[filiere_region].max()/100)*100)],
+        highlight=True,
+        smooth_factor=1)
+    
+    choropleth.add_to(regions_map)
+    
+    style_function = "font-size: 15px; font-weight: bold"
+    choropleth.geojson.add_child(folium.features.GeoJsonTooltip(
+        fields=['nom',filiere_region], aliases = ['Région :',filiere_region + " :"], labels = True))
+    
+    folium_static(regions_map)  
