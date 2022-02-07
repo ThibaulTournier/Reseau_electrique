@@ -119,7 +119,7 @@ elif choix_menu==parties_menu[3]:
     df_reg["Nom de la région"] = df_reg.index
     
     
-    liste_prod = ['Consommation (MW)', 'Gaz (MW)', 'Nucléaire (MW)','Eolien (MW)', 'Solaire (MW)', 'Hydraulique (MW)']
+    liste_prod = ['Consommation (MW)',  'Nucléaire (MW)','Eolien (MW)', 'Solaire (MW)', 'Hydraulique (MW)']
     
     filiere_region = st.selectbox(
      'Choix des filières à visualiser :',
