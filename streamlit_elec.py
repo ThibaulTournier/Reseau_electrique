@@ -157,3 +157,85 @@ elif choix_menu==parties_menu[3]:
         fields=['nom',filiere_region], aliases = ['Région :',filiere_region + " :"], labels = True))
     
     folium_static(regions_map)  
+
+elif choix_menu==parties_menu[4]:
+    st.title(parties_menu[4])
+    st.info("La consommation électrique a un caractère périodique correspondant à l'organisation de notre société industrielle \
+            mais dépend également fortement de la température extérieure. Nous allons ici prédire la consommation à l'aide de \
+            modèles de régression s'appuyant sur ces 2 composantes.")
+
+
+    st.subheader("Consommation en fonction de la température")
+
+    ###   PREPARATION DES DONNEES METEO   ###
+    
+    df_meteo_idf = pd.read_csv("Températures_IDF.csv", parse_dates = [0])
+    
+    
+    ### PREPARATION DES DONNEES ENERGETIQUES   ###
+    
+    df_energ_idf = df0[df0["Région"]=="Île-de-France"].loc[:,["Date - Heure","Consommation (MW)"]]
+    
+    df_complet = df_energ_idf.merge(right = df_meteo_idf, on = "Date - Heure", how = "inner")
+    df_complet["Jour de la semaine"] = df_complet["Date - Heure"].dt.weekday
+    df_complet["Heure"] = df_complet["Date - Heure"].dt.hour
+    df_complet["Mois"] = df_complet["Date - Heure"].dt.month
+    df_complet = df_complet.set_index('Date - Heure')
+    df_complet = df_complet.drop(df_complet[df_complet["Température (K)"]=='mq'].index,axis=0)
+    df_complet["Température (K)"] = df_complet["Température (K)"].astype(float)
+    df = df_complet["2013":"2019"] #on va établir notre modèle sur le période précédant la crise COVID
+    
+    #VISUALISATION DE LA CONSOMMATION PAR RAPPORT A LA TEMPERATURE
+    fig1 = plt.figure(figsize=(10, 8))
+    ax1 = fig1.add_subplot(111)
+    ax1.scatter(df['Température (K)'], df['Consommation (MW)'], color='darkblue')
+    ax1.set_xlabel('Température (K)')
+    ax1.set_ylabel('Consommation (MW)')
+    st.pyplot(fig1)
+    
+    ###########################################################################################
+    st.subheader("Modélisation")
+    data = df.loc[:,['Jour de la semaine','Mois','Heure', 'Température (K)']]
+    target = df['Consommation (MW)']
+    X_train, X_test, y_train, y_test = train_test_split(data, target, test_size=0.2, random_state=789)
+    
+    
+    modèles = ("RandomForestRegressor","KNeighborsRegressor","Ridge","Lasso")
+    choix = st.selectbox("Choix du modèle :", options = modèles)
+    
+    st.write("Modèle sélectionné :", choix)
+    
+    
+    def train_model(choix):
+        if choix == modèles[0]:
+            model = RandomForestRegressor(bootstrap= True,
+             max_depth= 50,
+             max_features= 'sqrt',
+             min_samples_leaf= 2,
+             min_samples_split= 15,
+             n_estimators= 700)
+        elif choix == modèles[1]:
+            nb_voisins = st.slider("n_neighbors :", 2, 14, step = 2)
+            model = KNeighborsRegressor(n_neighbors = nb_voisins)
+        elif choix == modèles[2]:
+            model = RidgeCV()
+        else :
+            model = Lasso()
+        model.fit(X_train, y_train)
+        df_complet["Prédiction de consommation (MW)"] = model.predict(df_complet[['Jour de la semaine','Mois','Heure', 'Température (K)']])
+        fig2 = plt.figure(figsize=(15,10))
+        ax2 = fig2.add_subplot(111)
+        ax2.plot(df_complet.loc[:,'Consommation (MW)'].resample("W").mean(), label = 'Consommation (MW)')
+        ax2.plot(df_complet.loc[:,'Prédiction de consommation (MW)'].resample("W").mean(), label = 'Prédiction de consommation (MW)')
+        ax2.legend()
+        ax2.set_xlabel("Temps")
+        ax2.set_ylabel("Consommation (MW)")
+        ax2.set_title("Consommation lissée par semaine (2012 à 2021)")
+        y_pred = model.predict(X_test)
+        mape = np.mean(np.abs((y_test - y_pred)/ y_test))*100
+        return mape, fig2
+    
+    mape, fig2 = train_model(choix)
+    
+    st.write("L'erreur moyenne absolue sur les données de test est de :", round(mape,2), "%")
+    st.pyplot(fig2)
