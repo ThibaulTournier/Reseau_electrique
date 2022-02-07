@@ -6,10 +6,10 @@ import folium
 import json
 from math import *
 from streamlit_folium import folium_static
-from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.neighbors import KNeighborsRegressor
-from sklearn.linear_model import Ridge, Lasso
+#from sklearn.model_selection import train_test_split, GridSearchCV
+#from sklearn.ensemble import RandomForestRegressor
+#from sklearn.neighbors import KNeighborsRegressor
+#from sklearn.linear_model import Ridge, Lasso
 
 df = pd.read_csv("eco2mix-national-cons-def_court.csv")
 df['Date et Heure'] = pd.to_datetime(df['Date et Heure'], format = "%Y-%m-%dT%H:%M:%S")
