@@ -16,7 +16,6 @@ df["Mois"] = df.index.month
 
 df0 = pd.read_csv("eco2mix-regional-cons-def_court.csv")
 df0['Date - Heure'] = pd.to_datetime(df0['Date - Heure'])
-df0 = df0.set_index('Date - Heure')
 df0 = df0.fillna(0)
 
 
@@ -113,6 +112,7 @@ elif choix_menu==parties_menu[3]:
     annee = st.selectbox("Choisissez une année :", options = choix_annee)
     
     df_reg = df0.copy()
+    df_reg = df_reg.set_index('Date - Heure')
     df_reg = df_reg.loc[str(annee),:]
     df_reg = df_reg.groupby("Région").mean()
     df_reg = round(df_reg,1)
