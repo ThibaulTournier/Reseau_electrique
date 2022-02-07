@@ -29,7 +29,6 @@ parties_menu = ["Boites à moustache des filières de production",
                 "Boites à moustache mensuelles des filières de production et de la consommation",
                 "Courbes des filières de production",
                 "Carte des filières de production par région",
-                "Prédiction de la consommation d'une région comme série temporelle",
                 "Prédiction de la consommation d'une région en prenant en compte la température"]
 
 choix_menu = st.sidebar.radio('', options=parties_menu)
